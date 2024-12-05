@@ -1,9 +1,13 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class User {
-    @ApiProperty()
-    id: number;
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 
-    @ApiProperty()
-    username: string;
+  @ApiProperty()
+  id?: number;
+
+  @ApiProperty()
+  username: string;
 }
