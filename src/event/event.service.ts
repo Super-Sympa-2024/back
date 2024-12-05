@@ -25,6 +25,17 @@ export class EventService {
     });
   }
 
+  findMyEvents(userId: number) {
+    return this.prisma.event.findMany({
+      where: {
+        userId: userId
+      },
+      include: {
+        user: true
+      }
+    })
+  }
+
   update(id: number, updateEventDto: UpdateEventDto) {
     return this.prisma.event.update({
       where: {
