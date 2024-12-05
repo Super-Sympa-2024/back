@@ -30,9 +30,6 @@ export class EventService {
       where: {
         userId: userId,
       },
-      include: {
-        user: true,
-      },
     });
   }
 

@@ -24,17 +24,6 @@ export class JwtAuthService {
       accessToken: this.jwtService.sign(payload),
     };
   }
-  async validateUser(username: string, password: string): Promise<User> {
-    const user: User = await this.userService.findOneByUsername(username);
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
-    const isMatch: boolean = bcrypt.compareSync(password, user.password);
-    if (!isMatch) {
-      throw new BadRequestException('Password does not match');
-    }
-    return user;
-  }
   async register(user: CreateUserDto): Promise<{ accessToken: string }> {
     const existingUser = await this.userService.findOneByUsername(
       user.username,

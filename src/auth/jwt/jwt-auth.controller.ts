@@ -3,9 +3,7 @@ import {
   Body,
   Controller,
   Post,
-  Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { JwtAuthService } from './jwt-auth.service';
 import { CreateUserDto } from '../../user/dto/create-user.dto';
 
@@ -15,9 +13,9 @@ export class AuthController {
 
   @Post('login')
   async login(
-    @Req() req: Request,
+    @Body() req: CreateUserDto,
   ): Promise<{ accessToken: string } | BadRequestException> {
-    return this.jwtAuthService.login(req.user as CreateUserDto);
+    return this.jwtAuthService.login(req);
   }
 
   @Post('register')
