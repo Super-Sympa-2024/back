@@ -14,18 +14,32 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.prisma.user.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    // gérer erreurs !!
+    return this.prisma.user.findUnique({
+      where: {
+        id: id
+      }
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.prisma.user.update({
+      where: {
+        id: id
+      },
+      data: updateUserDto
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.prisma.user.delete({
+      where: {
+        id: id
+      }
+    });
   }
 }

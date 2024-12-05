@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 
 export class User {
     @ApiProperty()
@@ -6,4 +7,8 @@ export class User {
 
     @ApiProperty()
     username: string;
+
+    @ApiProperty()
+    @Exclude()
+    password: string;
 }
