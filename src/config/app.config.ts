@@ -7,6 +7,6 @@ export default (): AppConfig => ({
       secret: <string>process.env.JWT_SECRET,
       expiresInSeconds:
         parseInt(<string>process.env.JWT_EXPIRATION_TIME_SECONDS) || 900,
-    }
+    },
   },
 });

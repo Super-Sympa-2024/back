@@ -9,7 +9,7 @@ export class UserService {
 
   create(createUserDto: CreateUserDto) {
     return this.prisma.user.create({
-      data: createUserDto
+      data: createUserDto,
     });
   }
 
@@ -21,8 +21,8 @@ export class UserService {
     // gérer erreurs !!
     return this.prisma.user.findUnique({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
   }
 
@@ -40,17 +40,25 @@ export class UserService {
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.prisma.user.update({
       where: {
-        id: id
+        id: id,
       },
-      data: updateUserDto
+      data: updateUserDto,
     });
   }
 
   remove(id: number) {
     return this.prisma.user.delete({
       where: {
-        id: id
-      }
+        id: id,
+      },
+    });
+  }
+
+  findOneByUsername(username: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        username: username,
+      },
     });
   }
 }

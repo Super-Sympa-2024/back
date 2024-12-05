@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import appConfig from './config/app.config';
 import { EventModule } from './event/event.module';
+import { JwtAuthModule } from './auth/jwt/jwt-auth.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { EventModule } from './event/event.module';
     UserModule,
     ConfigModule.forRoot({ isGlobal: true, load: [appConfig] }),
     EventModule,
+    JwtAuthModule,
   ],
 })
 export class AppModule {}

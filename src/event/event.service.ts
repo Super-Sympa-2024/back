@@ -6,10 +6,10 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class EventService {
   constructor(private readonly prisma: PrismaService) {}
-  
+
   create(createEventDto: CreateEventDto) {
     return this.prisma.event.create({
-      data: createEventDto
+      data: createEventDto,
     });
   }
 
@@ -20,36 +20,36 @@ export class EventService {
   findOne(id: number) {
     return this.prisma.event.findUnique({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
   }
 
   findMyEvents(userId: number) {
     return this.prisma.event.findMany({
       where: {
-        userId: userId
+        userId: userId,
       },
       include: {
-        user: true
-      }
-    })
+        user: true,
+      },
+    });
   }
 
   update(id: number, updateEventDto: UpdateEventDto) {
     return this.prisma.event.update({
       where: {
-        id: id
+        id: id,
       },
-      data: updateEventDto
+      data: updateEventDto,
     });
   }
 
   remove(id: number) {
     return this.prisma.event.delete({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
   }
 }

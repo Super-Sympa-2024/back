@@ -10,22 +10,22 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 export class JwtAuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
 
-  login(user: User) {
+  async login(user: User) {
     const { id, username } = user;
     const payload: JwtPayload = {
       id,
-      username
+      username,
     };
 
     return {
       accessToken: this.jwtService.sign(payload),
     };
   }
-  async validateUser(email: string, password: string): Promise<User> {
-    const user: User = await this.userService.findOneByEmail(email);
+  async validateUser(username: string, password: string): Promise<User> {
+    const user: User = await this.userService.findOneByUsername(username);
     if (!user) {
       throw new BadRequestException('User not found');
     }
@@ -35,14 +35,16 @@ export class JwtAuthService {
     }
     return user;
   }
-  async register(user: CreateUserDto): Promise<AccessToken> {
-    const existingUser = await this.usersService.findOneByEmail(user.email);
+  async register(user: CreateUserDto): Promise<{ accessToken: string }> {
+    const existingUser = await this.userService.findOneByUsername(
+      user.username,
+    );
     if (existingUser) {
       throw new BadRequestException('email already exists');
     }
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    const newUser: User = { ...user, password: hashedPassword };
-    await this.usersService.create(newUser);
+    const newUser: CreateUserDto = { ...user, password: hashedPassword };
+    await this.userService.create(newUser);
     return this.login(newUser);
   }
 }

@@ -1,5 +1,5 @@
 export enum EventType {
-    CONNEXION,
-    DECONNEXION,
-    UNKNOWN,
+  CONNEXION,
+  DECONNEXION,
+  UNKNOWN,
 }
