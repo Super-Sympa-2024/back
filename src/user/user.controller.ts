@@ -1,11 +1,12 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
   Delete,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -16,25 +17,25 @@ import { User } from './entities/user.entity';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  @ApiOkResponse({ type: User, isArray: true })
-  findAll() {
-    return this.userService.findAll();
-  }
-
   @Get(':id')
+  @UseInterceptors(ClassSerializerInterceptor)
   @ApiOkResponse({ type: User })
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const user = await this.userService.findOne(+id);
+    return new User(user);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.userService.update(+id, updateUserDto);
+    return new User(user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async remove(@Param('id') id: string) {
+    const user = await this.userService.remove(+id);
+    return new User(user);
   }
 }

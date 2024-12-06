@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Post,
-} from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { JwtAuthService } from './jwt-auth.service';
 import { CreateUserDto } from '../../user/dto/create-user.dto';
 

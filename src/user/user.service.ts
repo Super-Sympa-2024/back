@@ -26,17 +26,6 @@ export class UserService {
     });
   }
 
-  // me(id: number) {
-  //   return this.prisma.user.findUnique({
-  //     where: {
-  //       id: id
-  //     },
-  //     include: {
-  //       Event
-  //     }
-  //   })
-  // }
-
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.prisma.user.update({
       where: {

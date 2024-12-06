@@ -5,13 +5,14 @@ import {
   Body,
   Patch,
   Param,
-  Delete, UseGuards
-} from "@nestjs/common";
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { JwtAuthGuard } from "../auth/jwt/jwt-auth.guard";
-import { ApiOkResponse } from "@nestjs/swagger";
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('event')
 export class EventController {
