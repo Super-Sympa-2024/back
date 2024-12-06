@@ -12,6 +12,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { JwtAuthGuard } from "../auth/jwt/jwt-auth.guard";
 import { ApiOkResponse } from "@nestjs/swagger";
+import { EventType } from "@prisma/client";
 
 @Controller('event')
 export class EventController {
@@ -30,6 +31,11 @@ export class EventController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.eventService.findOne(+id);
+  }
+
+  @Get("type/:eventType")
+  findByEventType(@Param('event-type') eventType: string) {
+    return this.eventService.findByEventType(eventType as EventType)
   }
 
   @Get('me/:userId')

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { EventType } from '@prisma/client';
 
 @Injectable()
 export class EventService {
@@ -48,5 +49,13 @@ export class EventService {
         id: id,
       },
     });
+  }
+
+  findByEventType(eventType: EventType) {
+    return this.prisma.event.findMany({
+      where: {
+        eventType: eventType
+      }
+    })
   }
 }
